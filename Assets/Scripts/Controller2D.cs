@@ -9,13 +9,30 @@ public class Controller2D : RaycastController {
 	[HideInInspector]
 	public Vector2 playerInput;
 
-	public override void Start() {
+    public GUIText scoreCounter;
+    public int score;
+
+    public override void Start() {
 		base.Start ();
 		collisions.faceDir = 1;
+        
+        score = 0;
+        UpdateScore();
+    }
 
-	}
+    public void AddScore(int newScore)
+    {
+        score += newScore;
+        UpdateScore();
+    }
 
-	public void Move(Vector2 moveAmount, bool standingOnPlatform) {
+    // Update is called once per frame
+    void UpdateScore()
+    {
+        scoreCounter.text = "Score: " + score;
+    }
+
+public void Move(Vector2 moveAmount, bool standingOnPlatform) {
 		Move (moveAmount, Vector2.zero, standingOnPlatform);
 	}
 

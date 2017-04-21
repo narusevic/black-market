@@ -19,7 +19,10 @@ public class PlatformController : RaycastController {
 	float percentBetweenWaypoints;
 	float nextMoveTime;
 
-	List<PassengerMovement> passengerMovement;
+    public GUIText scoreCounter;
+    public int score;
+
+    List<PassengerMovement> passengerMovement;
 	Dictionary<Transform,Controller2D> passengerDictionary = new Dictionary<Transform, Controller2D>();
 	
 	public override void Start () {
@@ -28,10 +31,25 @@ public class PlatformController : RaycastController {
 		globalWaypoints = new Vector3[localWaypoints.Length];
 		for (int i =0; i < localWaypoints.Length; i++) {
 			globalWaypoints[i] = localWaypoints[i] + transform.position;
-		}
-	}
+        }
+        
+        score = 0;
+        UpdateScore();
+    }
 
-	void Update () {
+    public void AddScore(int newScore)
+    {
+        score += newScore;
+        UpdateScore();
+    }
+
+    // Update is called once per frame
+    void UpdateScore()
+    {
+        scoreCounter.text = "Score: " + score;
+    }
+
+    void Update () {
 
 		UpdateRaycastOrigins ();
 
